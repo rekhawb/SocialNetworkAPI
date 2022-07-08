@@ -17,13 +17,13 @@ const Reaction = new Schema(
     {
         reactionBody:
         {
-            type: 'string',
+            type: String,
             required:true,
             minlength:280
     } ,
     userName: 
     {
-        type:'string',
+        type:String,
         required:true
     },
     createdAt: {
@@ -52,7 +52,7 @@ const thoughtSchema = new Schema(
       get: (date) =>formatDate(date)
     },
   username:{
-    type:string,
+    type:String,
     required:true
   },
   reactions:[Reaction],
@@ -68,7 +68,7 @@ const thoughtSchema = new Schema(
 
 
 // Create a virtual property `friendsCount`
-userSchema.virtual('reactionCount').get(function () {
+thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
