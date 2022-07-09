@@ -111,7 +111,7 @@ deleteReaction(req,res){
 ? res.status(404).json({
     message: 'no thought with the ID!',
   })
-: res.json({ reaction})
+: res.json({ message: 'Reaction deleted successfully!' })
 )
 .catch((err) => res.status(500).json(err));
 },
