@@ -19,7 +19,8 @@ const Reaction = new Schema(
         {
             type: String,
             required:true,
-            minlength:280
+            minlength: 1,
+            maxlength: 280,
     } ,
     userName: 
     {

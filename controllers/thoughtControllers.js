@@ -81,4 +81,50 @@ deleteThought(req, res) {
     .catch((err) => res.status(500).json(err));
 },
 
+addReaction(req, res) {
+  Thought.findOneAndUpdate(
+    { _id: req.params.thoughtId },
+    { $addToSet: { reactions: req.body} },
+    { runValidators: true, new: true }
+  )
+    .then((thought) =>
+      !thought
+        ? res.status(404).json({ message: 'No thought with this id!' })
+        : res.json(thought)
+    )
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
+
+// delete reaction from a thought
+deleteReaction(req,res){
+  Thought.findOneAndUpdate(
+    {_id: req.params.thoughtId },
+    { $pull: { reactions: {_id:req.params.reactionId} } },
+    { new: true }
+  )
+
+.then((reaction) =>
+!reaction
+? res.status(404).json({
+    message: 'no thought with the ID!',
+  })
+: res.json({ reaction})
+)
+.catch((err) => res.status(500).json(err));
+},
+
+
 };
+
+
+//http://localhost:3001/api/thoughts/62c9b3997df7ce184477a3f6/reactions
+/*
+{
+  "thoughtText": "Here's a cool thought...",
+  "username": "lernantino",
+  "userId": "62c99d4b9e1e34e7a6f56d56"
+}
+*/
